@@ -8,7 +8,7 @@ function App() {
       isCompleted: true,
     },
     {
-      content: 'Cook lunch',
+      content: 'Make lunch',
       isCompleted: false,
     },
     {
@@ -20,6 +20,10 @@ function App() {
   const handleKeyDown = (e, i) => {
     if (e.key === 'Enter') {
       createTodoAtIndex(e, i);
+    }
+    if (e.key === 'Backspace' && todos[i].content === '') {
+      e.preventDefault();
+      return removeTodoAtIndex(i);
     }
   };
 
@@ -35,10 +39,18 @@ function App() {
     }, 0);
   }
 
-  function updateTodoAtIndex(e, i) {
+  const updateTodoAtIndex = (e, i) => {
     const newTodos = [...todos];
     newTodos[i].content = e.target.value;
     setTodos(newTodos);
+  }
+
+  const removeTodoAtIndex = i => {
+    if (i === 0 && todos.length === 1) return;
+    setTodos(todos => todos.slice(0, i).concat(todos.slice(i + 1, todos.length)));
+    setTimeout(() => {
+      document.forms[0].elements[i - 1].focus();
+    }, 0);
   }
 
   return (
@@ -49,12 +61,12 @@ function App() {
           {todos.map((todo, i) => (
             <div className="todo">
               <div className="checkbox" />
-              <input 
-                type="text" 
-                value={todo.content} 
-                onKeyDown={e => handleKeyDown(e, i)} 
+              <input
+                type="text"
+                value={todo.content}
+                onKeyDown={e => handleKeyDown(e, i)}
                 onChange={e => updateTodoAtIndex(e, i)}
-                />
+              />
             </div>
           ))}
         </ul>
