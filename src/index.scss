@@ -41,10 +41,10 @@ body {
     align-items: center;
     margin: 1rem 0;
 
-    .completed {
+    &.completed {
       .checkbox {
         color: #000;
-        background: #3f3f3f;
+        background: #8e8d8d;
       } 
 
       input {
@@ -63,7 +63,7 @@ body {
       justify-content: center;
       align-items: center;
       transition: background-color 0.2s ease-in-out;
-      border: 1px solid #3f3f3f;
+      border: 1px solid #b3b3b3;
 
       &:hover {
         background: rgba(63, 63, 63, 0.25);
